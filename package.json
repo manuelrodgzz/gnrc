@@ -1,0 +1,14 @@
+{
+  "name": "new-comp",
+  "version": "1.0.0",
+  "description": "Utility for creating new react components",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manuel Rodríguez",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
