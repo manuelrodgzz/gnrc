@@ -1,20 +1,20 @@
 const {indexString, fnComponentString, classComponentString} = require('./content');
 const readline = require('readline-sync');
-const fs = require('fs')
+const fs = require('fs');
 
 module.exports = {
     options: (args) => {
 
-        let selectedStyle
+        let selectedStyle;
 
+        //if -s exists 
         if(args.includes('-s')) {
-            selectedStyle = args[args.indexOf('-s') + 1]
 
-            if(selectedStyle === undefined)
-                selectedStyle = 'css'
+            //if user specified a styles language, it is converted to lower case. Else it will be css
+            selectedStyle = args[args.indexOf('-s') + 1] ? args[args.indexOf('-s') + 1].toLowerCase() : 'css'
 
             if(!['css','sass','scss','less'].includes(selectedStyle))
-                throw Error('Please select a valid styles language (css, sass, scss, less)')
+                throw Error('Please select a valid styles language (css, sass, scss, less)');
         }
 
         return {

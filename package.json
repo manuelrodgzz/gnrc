@@ -1,14 +1,29 @@
 {
   "name": "new-comp",
   "version": "1.0.0",
-  "description": "Utility for creating new react components",
+  "description": "Node application for creating react components in a simple and fast way",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Manuel Rodríguez",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "readline-sync": "^1.4.10"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelrodgzz/new-comp.git"
+  },
+  "keywords": [
+    "new",
+    "component",
+    "react",
+    "generator"
+  ],
+  "bugs": {
+    "url": "https://github.com/manuelrodgzz/new-comp/issues"
+  },
+  "homepage": "https://github.com/manuelrodgzz/new-comp#readme"
 }

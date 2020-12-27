@@ -18,7 +18,7 @@ if(!path){
 }
 
 const pathArray = path.split('/');
-const componentName = pathArray[pathArray.length-1];
+const componentName = pathArray[pathArray.length-1][0].toUpperCase() + pathArray[pathArray.length-1].slice(1);
 
 const dirToCreate = `${pathArray.length > 1 
     ? './' + pathArray.slice(0,pathArray.length-1).join('/')
