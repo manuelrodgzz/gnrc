@@ -1,4 +1,4 @@
-# new-comp
+# Generate New React Component (gnrc)
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -7,7 +7,7 @@
 Save your time and generate your react components in a simple and fast way.
 
 ## Command
-`new-comp <path> [{-f | -c}] [-i] [-s [<language>]]`
+`gnrc <path> [{-f | -c}] [-i] [-s [<language>]]`
 
 *If only component name is specified instead of the whole path, the component will be created in components folder*
 
@@ -26,7 +26,7 @@ Save your time and generate your react components in a simple and fast way.
 - less
 
 ## Example 1
-`new-comp MyComponent -i -s`
+`gnrc MyComponent -i -s`
 ```
 .
 +-- components
@@ -37,7 +37,7 @@ Save your time and generate your react components in a simple and fast way.
 ```
 
 ## Example 2
-`new-comp components/NewFolder/MyComponent -c -s sass`
+`gnrc components/NewFolder/MyComponent -c -s sass`
 ```
 .
 +-- components
@@ -47,11 +47,11 @@ Save your time and generate your react components in a simple and fast way.
 |           +-- MyComponent.module.sass
 ```
 
-[forks-shield]: https://img.shields.io/github/forks/manuelrodgzz/new-comp
-[forks-url]: https://github.com/manuelrodgzz/new-comp/network/members
-[stars-shield]: https://img.shields.io/github/stars/manuelrodgzz/new-comp
-[stars-url]: https://github.com/manuelrodgzz/new-comp/stargazers
-[issues-shield]: https://img.shields.io/github/issues/manuelrodgzz/new-comp
-[issues-url]: https://github.com/manuelrodgzz/new-comp/issues
-[license-shield]: https://img.shields.io/github/license/manuelrodgzz/new-comp
-[license-url]: https://github.com/manuelrodgzz/new-comp/blob/main/LICENSE.md
+[forks-shield]: https://img.shields.io/github/forks/manuelrodgzz/gnrc
+[forks-url]: https://github.com/manuelrodgzz/gnrc/network/members
+[stars-shield]: https://img.shields.io/github/stars/manuelrodgzz/gnrc
+[stars-url]: https://github.com/manuelrodgzz/gnrc/stargazers
+[issues-shield]: https://img.shields.io/github/issues/manuelrodgzz/gnrc
+[issues-url]: https://github.com/manuelrodgzz/gnrc/issues
+[license-shield]: https://img.shields.io/github/license/manuelrodgzz/gnrc
+[license-url]: https://github.com/manuelrodgzz/gnrc/blob/main/LICENSE.md

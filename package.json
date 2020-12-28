@@ -9,7 +9,7 @@
   "author": "Manuel Rodríguez",
   "license": "MIT",
   "bin": {
-    "new-comp": "./bin/index.js"
+    "gnrc": "./bin/index.js"
   },
   "dependencies": {
     "readline-sync": "^1.4.10"
@@ -17,7 +17,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manuelrodgzz/new-comp.git"
+    "url": "git+https://github.com/manuelrodgzz/gnrc.git"
   },
   "keywords": [
     "new",
@@ -26,7 +26,7 @@
     "generator"
   ],
   "bugs": {
-    "url": "https://github.com/manuelrodgzz/new-comp/issues"
+    "url": "https://github.com/manuelrodgzz/gnrc/issues"
   },
-  "homepage": "https://github.com/manuelrodgzz/new-comp#readme"
+  "homepage": "https://github.com/manuelrodgzz/gnrc#readme"
 }
