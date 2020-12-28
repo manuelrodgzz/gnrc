@@ -6,6 +6,9 @@
 
 Save your time and generate your react components in a simple and fast way.
 
+## Installation
+`npm i -g gnrc`
+
 ## Command
 `gnrc <path> [{-f | -c}] [-i] [-s [<language>]]`
 
