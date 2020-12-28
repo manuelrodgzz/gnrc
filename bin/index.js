@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs')
 const message = require('./helpers/message')
 const validation = require('./helpers/validation');
@@ -12,7 +14,7 @@ catch(err) {
     return
 }
 
-if(!path){
+if(!path || path[0] === '-'){
     message.yellow('Component path was not specified');
     return
 }

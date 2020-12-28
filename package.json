@@ -2,12 +2,15 @@
   "name": "new-comp",
   "version": "1.0.0",
   "description": "Node application for creating react components in a simple and fast way",
-  "main": "app.js",
+  "main": "bin/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Manuel Rodríguez",
   "license": "MIT",
+  "bin": {
+    "new-comp": "./bin/index.js"
+  },
   "dependencies": {
     "readline-sync": "^1.4.10"
   },
