@@ -10,7 +10,7 @@ Save your time and generate your react components in a simple and fast way.
 `npm i -g gnrc`
 
 ## Command
-`gnrc {<path> | <component name>} [{-f | -c}] [-i] [-s [<language>]]`
+`gnrc {<path> | <component name>} [{-f | -c}] [-i] [--no-folder] [-s [<language>]]`
 
 If only component name is specified instead of path:
 - **Case *src* folder exists:** The component will be created in *components* folder inside of *src* folder
