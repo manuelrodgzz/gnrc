@@ -1,3 +1,4 @@
-#ignores components folder because it's for testing purposes
+#ignores this folders because it's for testing purposes
 components/
+src
 node_modules

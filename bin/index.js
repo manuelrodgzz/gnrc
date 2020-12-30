@@ -22,9 +22,23 @@ if(!path || path[0] === '-'){
 const pathArray = path.split('/');
 const componentName = pathArray[pathArray.length-1][0].toUpperCase() + pathArray[pathArray.length-1].slice(1);
 
-const dirToCreate = `${pathArray.length > 1 
-    ? './' + pathArray.slice(0,pathArray.length-1).join('/')
-    : './components'}/${componentName}`;
+const dirToCreate = (() => {
+    let dir
+    if(pathArray.length > 1)
+        dir =  pathArray.slice(0,pathArray.length-1).join('/')
+    else{
+
+        if(fs.existsSync('./src'))
+            dir = `./src/components`
+        else
+            dir = `./components`;
+    }
+
+    if(!args.includes('--no-folder'))
+        dir += `/${componentName}`
+
+    return dir
+})();
 
 if(!fs.existsSync(dirToCreate))
     fs.mkdirSync(dirToCreate, {recursive: true});

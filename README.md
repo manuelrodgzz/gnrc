@@ -10,9 +10,11 @@ Save your time and generate your react components in a simple and fast way.
 `npm i -g gnrc`
 
 ## Command
-`gnrc <path> [{-f | -c}] [-i] [-s [<language>]]`
+`gnrc {<path> | <component name>} [{-f | -c}] [-i] [-s [<language>]]`
 
-*If only component name is specified instead of the whole path, the component will be created in components folder*
+If only component name is specified instead of path:
+- **Case *src* folder exists:** The component will be created in *components* folder inside of *src* folder
+- **Case *src* folder does not exist:** The component will be created in *components* folder
 
 ## Flags table
 | Flag | Description | Default |
@@ -21,6 +23,7 @@ Save your time and generate your react components in a simple and fast way.
 |  -c  | The new component will be a class component | No |
 |  -i  | Generates an extra index file which will export the new component | No |
 |  -s \<language\>  | Generates a styles sheet file. If no laguange is specified, a css file will be generated | No |
+| --no-folder | The componet will not have it's own folder | No |
 
 ## Supported styles languages
 - css
@@ -29,25 +32,28 @@ Save your time and generate your react components in a simple and fast way.
 - less
 
 ## Example 1
+*src folder exist*
+
 `gnrc MyComponent -i -s`
 ```
 .
-+-- components
-|   +-- MyComponent
-|       +-- MyComponent.js //functional component
-|       +-- index.js
-|       +-- MyComponent.module.css
++-- src
+    +-- components
+|       +-- MyComponent
+|           +-- MyComponent.js //functional component
+|           +-- index.js
+|           +-- MyComponent.module.css
 ```
 
 ## Example 2
-`gnrc components/NewFolder/MyComponent -c -s sass`
+*src folder does not exist*
+
+`gnrc ./components/MyComponent -c --no-folder -s sass`
 ```
 .
 +-- components
-|   +-- NewFolder
-|       +-- MyComponent
-|           +-- MyComponent.js //class component
-|           +-- MyComponent.module.sass
+|    +-- MyComponent.js //class component
+|    +-- MyComponent.module.sass
 ```
 
 [forks-shield]: https://img.shields.io/github/forks/manuelrodgzz/gnrc
