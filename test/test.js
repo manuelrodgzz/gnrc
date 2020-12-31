@@ -1,7 +1,6 @@
 const assert = require('assert');
-const mock = require('mock-fs');
 const fs = require('fs');
-const {spawnSync, execSync, exec} = require('child_process')
+const {execSync} = require('child_process')
 
 describe('Testing component generation', () => {
 
