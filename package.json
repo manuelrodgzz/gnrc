@@ -4,7 +4,7 @@
   "description": "Node application for creating react components in a simple and fast way",
   "main": "bin/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Manuel Rodríguez",
   "license": "MIT",
@@ -14,7 +14,11 @@
   "dependencies": {
     "readline-sync": "^1.4.10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "mocha": "^8.2.1",
+    "mock-fs": "^4.13.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manuelrodgzz/gnrc.git"
