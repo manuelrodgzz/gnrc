@@ -10,7 +10,7 @@ Save your time and generate your react components in a simple and fast way.
 `npm i -g gnrc`
 
 ## Command
-`gnrc {<path> | <component name>} [{-f | -c}] [-i] [--no-folder] [-s [<language>]]`
+`gnrc {<path> | <component name>} [{-f | -c}] [-i] [--no-folder] [-s [<language>]] [--state] [--effect]`
 
 If only component name is specified instead of path:
 - **Case *src* folder exists:** The component will be created in *components* folder inside of *src* folder
@@ -24,6 +24,8 @@ If only component name is specified instead of path:
 |  -i  | Generates an extra index file which will export the new component | No |
 |  -s \<language\>  | Generates a styles sheet file. If no laguange is specified, a css file will be generated | No |
 | --no-folder | The componet will not have it's own folder | No |
+| --state | Imports useState hook when component is functional | No |
+| --effect | Imports useEffect hook when component is functional | No |
 
 ## Supported styles languages
 - css
