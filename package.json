@@ -1,6 +1,6 @@
 {
   "name": "gnrc",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Node application for creating react components in a simple and fast way",
   "main": "bin/index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "gnrc": "./bin/index.js"
   },
   "dependencies": {
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "update-notifier": "^5.0.1"
   },
   "devDependencies": {
     "assert": "^2.0.0",

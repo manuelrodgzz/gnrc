@@ -1,12 +1,12 @@
 const assert = require('assert');
 const fs = require('fs');
-const {execSync} = require('child_process')
+const {execSync} = require('child_process');
 
-describe('Testing component generation', () => {
-
+describe('Testing component generation', function() {
+    this.timeout(5000)
     /**
      * 
-     * @param {{folderPath: string, componentFile: {path: string, type: string}, indexPath: string, stylePath: string}} component 
+     * @param {{folderPath: string, componentFile: {path: string, type: string, hooks: [string]}, indexPath: string, stylePath: string}} component 
      */
     const filesExist = (component) => {
         const result = {}
@@ -16,7 +16,7 @@ describe('Testing component generation', () => {
         result.file = fs.existsSync(component.componentFile.path)
         result.index = fs.existsSync(component.indexPath)
         result.style = fs.existsSync(component.stylePath)
-
+        
         //If component file exist, it's content is read and checks if it was created correctly
         if(result.file){
             const cat = execSync(`cat ${component.componentFile.path}`, {shell: 'powershell.exe'})
@@ -37,12 +37,29 @@ describe('Testing component generation', () => {
                 else
                     fileOk = cat.includes('class MyComponent')
 
+                if(component.componentFile.hooks && component.componentFile.hooks.length > 0)
+                    fileOk = cat.includes(`import React, {${component.componentFile.hooks.join(', ')}} from 'react'`)
+
                 return fileOk
             })()
         }
 
         return result
     }
+
+    /**
+     * 
+     * @param {boolean} folderShouldExist 
+     * @param {boolean} fileShouldExist 
+     * @param {boolean} indexShouldExist 
+     * @param {boolean} styleShouldExist 
+     */
+    const createExpected = (folderShouldExist, fileShouldExist, indexShouldExist, styleShouldExist) => ({
+        folder: folderShouldExist,
+        file: fileShouldExist,
+        index: indexShouldExist,
+        style: styleShouldExist
+    }) 
 
     beforeEach(() => {
 
@@ -57,16 +74,14 @@ describe('Testing component generation', () => {
     afterEach(() => {
         if(fs.existsSync('./components'))
             execSync('del components -Force -Recurse', {shell: 'powershell.exe'})
+        
+        if(fs.existsSync('./src'))
+            execSync('del src -Force -Recurse', {shell: 'powershell.exe'})
     })
 
     it('Creating functional component with index and css file', (done) => {
 
-        const expected = {
-            folder: true,
-            file: true,
-            style: true,
-            index: true
-        }
+        const expected = createExpected(true, true, true, true)
 
         execSync('node bin MyComponent -i -s')
 
@@ -83,12 +98,7 @@ describe('Testing component generation', () => {
 
     it('Creating class component with sass file', (done) => {
 
-        const expected = {
-            folder: true,
-            file: true,
-            index: false,
-            style: true
-        }
+        const expected = createExpected(true, true, false, true)
 
         execSync('node bin MyComponent -c -s sass')
 
@@ -105,12 +115,7 @@ describe('Testing component generation', () => {
 
     it('Creating functional component explicitly with path, less file and without folder', (done) => {
 
-        const expected = {
-            folder: false,
-            file: true,
-            index: false,
-            style: true
-        }
+        const expected = createExpected(false, true, false, true)
 
         execSync('node bin ./components/MyComponent -f -s less --no-folder')
 
@@ -119,6 +124,47 @@ describe('Testing component generation', () => {
             componentFile: {path: './components/MyComponent.js', type: 'function'},
             indexPath: './components/index.js',
             stylePath: './components/MyComponent.module.less'
+        })
+
+        assert.deepStrictEqual(actual, expected)
+        done()
+    })
+
+    it('Creating functional component with useState and useEffect hooks', (done) => {
+
+        const expected = createExpected(true, true, false, false)
+
+        execSync('node bin MyComponent --state --effect')
+
+        const actual = filesExist({
+            folderPath: './components/MyComponent',
+            componentFile: {
+                path: './components/MyComponent/MyComponent.js', 
+                type: 'function', 
+                hooks: ['useState', 'useEffect']
+            },
+            indexPath: './components/MyComponent/index.js',
+            stylePath: './components/MyComponent/MyComponent.module.css'
+        })
+
+        assert.deepStrictEqual(actual, expected)
+        done()
+    })
+
+    it('Creating class component with index when src folder exist', (done) => {
+        const expected = createExpected(true, true, true, false)
+
+        execSync('mkdir src')
+        execSync('node bin MyComponent -c -i')
+
+        const actual = filesExist({
+            folderPath: './src/components/MyComponent',
+            componentFile: {
+                path: './src/components/MyComponent/MyComponent.js',
+                type: 'class'
+            },
+            indexPath: './src/components/MyComponent/index.js',
+            stylePath: './components/MyComponent/MyComponent.module.css'
         })
 
         assert.deepStrictEqual(actual, expected)

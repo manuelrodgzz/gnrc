@@ -3,21 +3,23 @@
 const fs = require('fs')
 const message = require('./helpers/message')
 const validation = require('./helpers/validation');
+const pkg = require('../package.json');
+const updateNotifier = require('update-notifier');
 const args = process.argv.slice(2)
 const path = args[0]
 
-let options 
+if(!path || path[0] === '-'){
+    message.yellow('Component path was not specified');
+    return
+}
 
+let options 
 try{ options = validation.options(args); }
 catch(err) {
     message.red(err.message);
     return
 }
 
-if(!path || path[0] === '-'){
-    message.yellow('Component path was not specified');
-    return
-}
 
 const pathArray = path.split('/');
 const componentName = pathArray[pathArray.length-1][0].toUpperCase() + pathArray[pathArray.length-1].slice(1);
@@ -52,7 +54,7 @@ try{
     const createFile = validation.fileExists(file)
 
     if(createFile){
-        fs.writeFileSync(file, options.componentContent(componentName, options.selectedStyle));
+        fs.writeFileSync(file, options.componentContent(componentName));
         message.green(`${componentName}.js was created successfully!`);
     }
 }
@@ -94,3 +96,7 @@ if(options.selectedStyle) {
         return
     }
 }
+
+const notifier = updateNotifier({pkg, updateCheckInterval: 0});
+
+notifier.notify({isGlobal: true});

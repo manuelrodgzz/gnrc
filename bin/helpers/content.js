@@ -1,6 +1,7 @@
 const indexString = (componentName) => `export {default} from './${componentName}'`
 
-const fnComponentString = (componentName, selectedStyle) => `import React from 'react'
+const fnComponentString = (componentName, selectedStyle, hooks) => {
+    return `import React${hooks.length > 0 ? `, {${hooks.join(', ')}} ` : ' '}from 'react'
 ${selectedStyle ? `import styles from './${componentName}.module.${selectedStyle}'\r\n` : ''}
 const ${componentName} = (props) => {
     return(
@@ -9,7 +10,7 @@ const ${componentName} = (props) => {
 }
 
 export default ${componentName}`
-
+}
 const classComponentString = (componentName, selectedStyle) => `import React from 'react'
 ${selectedStyle ? `import styles from './${componentName}.module.${selectedStyle}'\r\n` : ''}
 class ${componentName} extends React.Component {
