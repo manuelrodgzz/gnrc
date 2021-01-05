@@ -17,15 +17,16 @@ If only component name is specified instead of path:
 - **Case *src* folder does not exist:** The component will be created in *components* folder
 
 ## Flags table
-| Flag | Description | Default |
-|-----:|:-----------:|:--------|
-|  -f  | The new component will be a functional component | Yes |
-|  -c  | The new component will be a class component | No |
-|  -i  | Generates an extra index file which will export the new component | No |
-|  -s \<language\>  | Generates a styles sheet file. If no laguange is specified, a css file will be generated | No |
-| --no-folder | The componet will not have it's own folder | No |
-| --state | Imports useState hook when component is functional | No |
-| --effect | Imports useEffect hook when component is functional | No |
+| Flag | Description |
+|-----:|:-----------:|
+|  -f  (default)  | The new component will be a functional component |
+|  -c  | The new component will be a class component |
+|  -i  | Generates an extra index file which will export the new component |
+|  -s \<language\>  | Generates a styles sheet file. If no laguange is specified, a css file will be generated |
+| -h, --help | Shows usage |
+| --no-folder | The componet will not have it's own folder |
+| --state | Imports useState hook when component is functional |
+| --effect | Imports useEffect hook when component is functional |
 
 ## Supported styles languages
 - css

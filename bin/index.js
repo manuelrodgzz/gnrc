@@ -5,15 +5,35 @@ const message = require('./helpers/message')
 const validation = require('./helpers/validation');
 const pkg = require('../package.json');
 const updateNotifier = require('update-notifier');
-const args = process.argv.slice(2)
-const path = args[0]
+const args = process.argv.slice(2);
+
+if(args[0] && (args[0] === '-h' || args[0] === '--help')){
+    
+    return console.log(`
+    gnrc usage:
+    
+    gnrc {<path> | <component name>} [{-f | -c}] [-i] [--no-folder] [-s [<language>]] [--state] [--effect]
+    
+        Option     |                Description
+    -f  (default)   The new component will be a functional component
+    -c              The new component will be a class component
+    -i              Generates an extra index file which will export the new component
+    -s <language>   Generates a styles sheet file. If no laguange is specified, a css file will be generated
+    -h, --help      Shows usage
+    --no-folder     The componet will not have it's own folder
+    --state         Imports useState hook when component is functional
+    --effect        Imports useEffect hook when component is functional	
+    `);
+}
+
+const path = args[0];
 
 if(!path || path[0] === '-'){
     message.yellow('Component path was not specified');
     return
 }
 
-let options 
+let options;
 try{ options = validation.options(args); }
 catch(err) {
     message.red(err.message);
