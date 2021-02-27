@@ -3,7 +3,18 @@ const fs = require('fs');
 const {execSync} = require('child_process');
 
 describe('Testing component generation', function() {
+
+    const execConfig = process.platform === 'win32' ? {shell: 'powershell.exe'} : undefined
     this.timeout(5000)
+
+    const deleteFiles = (path) => {
+
+        if(process.platform === 'win32')
+            execSync('del components -Force -Recurse', execConfig);
+        else
+            execSync(`rm -r ${path}`);
+    }
+
     /**
      * 
      * @param {{folderPath: string, componentFile: {path: string, type: string, hooks: [string]}, indexPath: string, stylePath: string}} component 
@@ -18,8 +29,8 @@ describe('Testing component generation', function() {
         result.style = fs.existsSync(component.stylePath)
         
         //If component file exist, it's content is read and checks if it was created correctly
-        if(result.file){
-            const cat = execSync(`cat ${component.componentFile.path}`, {shell: 'powershell.exe'})
+        if(result.file){            
+            const cat = execSync(`cat ${component.componentFile.path}`, execConfig)
 
             result.file = (() => {
                 let fileOk = true
@@ -73,10 +84,10 @@ describe('Testing component generation', function() {
 
     afterEach(() => {
         if(fs.existsSync('./components'))
-            execSync('del components -Force -Recurse', {shell: 'powershell.exe'})
+            deleteFiles('components')
         
         if(fs.existsSync('./src'))
-            execSync('del src -Force -Recurse', {shell: 'powershell.exe'})
+            deleteFiles('src')
     })
 
     it('Creating functional component with index and css file', (done) => {

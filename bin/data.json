@@ -1,0 +1,17 @@
+{
+    "help": [
+    "\tgnrc usage:",
+    "\r\n",
+    "\tgnrc {<path> | <component name>} [{-f | -c}] [-i] [--no-folder] [-s [<language>]] [--state] [--effect]",
+    "\r\n",
+    "\tOption     |                Description",
+    "\t-f  (default)   The new component will be a functional component",
+    "\t-c              The new component will be a class component",
+    "\t-i              Generates an extra index file which will export the new component",
+    "\t-s <language>   Generates a styles sheet file. If no laguange is specified, a css file will be generated",
+    "\t-h, --help      Shows usage",
+    "\t--no-folder     The componet will not have it's own folder",
+    "\t--state         Imports useState hook when component is functional",
+    "\t--effect        Imports useEffect hook when component is functional"
+    ]
+}
