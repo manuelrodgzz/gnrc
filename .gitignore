@@ -2,3 +2,5 @@
 components/
 src
 node_modules
+config.dev.json
+config.json

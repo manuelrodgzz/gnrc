@@ -1,10 +1,13 @@
 {
   "name": "gnrc",
-  "version": "2.1.3",
+  "version": "3.0.0",
   "description": "Node application for creating react components in a simple and fast way",
   "main": "bin/index.js",
   "scripts": {
-    "test": "mocha"
+    "start": "node ./bin/index.js",
+    "test": "mocha",
+    "prettify": "npx prettier -w bin test",
+    "lint": "eslint . --fix"
   },
   "author": "Manuel Rodríguez",
   "license": "MIT",
@@ -17,7 +20,10 @@
   },
   "devDependencies": {
     "assert": "^2.0.0",
-    "mocha": "^8.2.1"
+    "eslint": "^7.23.0",
+    "eslint-plugin-mocha": "^8.1.0",
+    "mocha": "^8.2.1",
+    "prettier": "^2.2.1"
   },
   "repository": {
     "type": "git",

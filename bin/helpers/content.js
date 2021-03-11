@@ -1,18 +1,26 @@
-const indexString = (componentName) => `export {default} from './${componentName}'`
+const toCase = require('./toCase');
 
-const fnComponentString = (componentName, selectedStyle, hooks) => {
-    return `import React${hooks.length > 0 ? `, {${hooks.join(', ')}} ` : ' '}from 'react'
-${selectedStyle ? `import styles from './${componentName}.module.${selectedStyle}'\r\n` : ''}
+const index = (componentName) => `export {default} from './${componentName}'`;
+
+const fnComponent = (componentName, stylesFile, hooks) => {
+  componentName = toCase(componentName, 'pascal');
+  return `import React${
+    hooks.length > 0 ? `, {${hooks.join(', ')}} ` : ' '
+  }from 'react'
+${stylesFile ? `import styles from './${stylesFile}'\r\n` : ''}
 const ${componentName} = (props) => {
     return(
         <div>${componentName} is working!</div>
     )
 }
 
-export default ${componentName}`
-}
-const classComponentString = (componentName, selectedStyle) => `import React from 'react'
-${selectedStyle ? `import styles from './${componentName}.module.${selectedStyle}'\r\n` : ''}
+export default ${componentName}`;
+};
+
+const classComponent = (componentName, stylesFile) => {
+  componentName = toCase(componentName, 'pascal');
+  return `import React from 'react'
+${stylesFile ? `import styles from './${stylesFile}'\r\n` : ''}
 class ${componentName} extends React.Component {
     constructor(props){
         super(props)
@@ -25,10 +33,26 @@ class ${componentName} extends React.Component {
     }
 }
 
-export default ${componentName}`
+export default ${componentName}`;
+};
+
+const config = JSON.stringify(
+  {
+    fileCase: 'pascal',
+    componentType: 'function',
+    styles: false,
+    stylesLanguage: 'css',
+    stylesModule: true,
+    componentFolder: true,
+    createIndex: false,
+  },
+  undefined,
+  1
+);
 
 module.exports = {
-    indexString,
-    fnComponentString,
-    classComponentString
-}
+  index,
+  fnComponent,
+  classComponent,
+  config,
+};

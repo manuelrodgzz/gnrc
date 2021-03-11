@@ -1,109 +1,63 @@
 #!/usr/bin/env node
+const { message, getOptions, createComponentFiles } = require('./helpers');
+/**Main function */
+const gnrc = () => {
+  const updateNotifier = require('update-notifier');
+  const data = require('./data.json');
+  const pkg = require('../package.json');
+  const {updateConfig, config} = require('./helpers');
+  const userArgs = process.argv.slice(2);
+  const notifier = updateNotifier({ pkg, updateCheckInterval: 0 });
 
-const fs = require('fs');
-const message = require('./helpers/message');
-const data = require('./data.json')
-const validation = require('./helpers/validation');
-const pkg = require('../package.json');
-const updateNotifier = require('update-notifier');
-const args = process.argv.slice(2);
+  //Get users options
+  let options;
+  try {
+    options = getOptions(userArgs);
+  } catch (err) {
+    message.yellow(err);
+    return;
+  }
 
-const notifier = updateNotifier({pkg, updateCheckInterval: 0});
+  if (options.config) {
+    if (options.help)
+      //If --config --help
+      return message.normal(data.help.config.join('\r\n'));
+    else if (Object.keys(options.config).length === 0)
+      //If --config
+      return message.normal(config);
+    //If --config ...arguments
+    else return updateConfig(options);
+  }
 
-if(args[0] && (args[0] === '-h' || args[0] === '--help')){
-    
-    return console.log(data.help.join('\r\n'));``
+  //If --help
+  if (options.help) return message.normal(data.help.gnrc.join('\r\n'));
+
+  //If -v
+  if (options.version) return message.normal(`v${pkg.version}`);
+
+  try {
+    createComponentFiles(options);
+  } catch (err) {
+    message.red(err);
+    return;
+  }
+
+  notifier.notify({ isGlobal: true });
+};
+
+/**Validates if config.json exist, else it is created */
+const validateConfigFile = () => {
+  const { createConfigFile } = require('./helpers');
+  const fs = require('fs');
+
+  if (!fs.existsSync(`${__dirname}/config.json`)) {
+    createConfigFile(__dirname);
+  }
+};
+
+try {
+  validateConfigFile();
+  gnrc();
+} catch (err) {
+  message.red(err);
 }
-
-const path = args[0];
-
-if(!path || path[0] === '-'){
-    message.yellow('Component path was not specified');
-    return
-}
-
-let options;
-try{ options = validation.options(args); }
-catch(err) {
-    message.red(err.message);
-    return
-}
-
-
-const pathArray = path.split('/');
-const componentName = pathArray[pathArray.length-1][0].toUpperCase() + pathArray[pathArray.length-1].slice(1);
-
-const dirToCreate = (() => {
-    let dir
-    if(pathArray.length > 1)
-        dir =  pathArray.slice(0,pathArray.length-1).join('/')
-    else{
-
-        if(fs.existsSync('./src'))
-            dir = `./src/components`
-        else
-            dir = `./components`;
-    }
-
-    if(!args.includes('--no-folder'))
-        dir += `/${componentName}`
-
-    return dir
-})();
-
-if(!fs.existsSync(dirToCreate))
-    fs.mkdirSync(dirToCreate, {recursive: true});
-
-
-let file
-//Component file is created
-try{
-    file = `${dirToCreate}/${componentName}.js`
-
-    const createFile = validation.fileExists(file)
-
-    if(createFile){
-        fs.writeFileSync(file, options.componentContent(componentName));
-        message.green(`${componentName}.js was created successfully!`);
-    }
-}
-catch(err){
-    message.red(`Error while trying to create ${file}.\r\n${err.message}`);
-    return
-}
-
-//index file is created if user wanted it
-if(options.indexString) {
-    try{
-        file = `${dirToCreate}/index.js`
-        const createFile = validation.fileExists(file)
-        if(createFile) {
-            fs.writeFileSync(file, options.indexString(componentName));
-            message.green('index.js was created successfully!');
-        }
-    }
-    catch(err){
-        message.red(`Error while trying to create ${file}.\r\n${err.message}`);
-        return
-    }
-}
-
-//styles file is created if user wanted it
-if(options.selectedStyle) {
-    try{
-        file = `${dirToCreate}/${componentName}.module.${options.selectedStyle}`
-
-        const createFile = validation.fileExists(file)
-
-        if(createFile){
-            fs.writeFileSync(file, '');
-            message.green(`${componentName}.${options.selectedStyle} was created successfully!`);
-        }
-    }
-    catch(err){
-        message.red(`Error while trying to create ${file}.\r\n${err.message}`);
-        return
-    }
-}
-
-notifier.notify({isGlobal: true});

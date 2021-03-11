@@ -1,0 +1,15 @@
+{
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "plugins": ["mocha"],
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 10
+  },
+  "rules": {
+    "no-shadow-restricted-names": "off",
+    "no-console": ["error", {"allow": ["warn", "error", "info"]}]
+  }
+}

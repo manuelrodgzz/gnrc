@@ -1,17 +1,39 @@
 {
-    "help": [
-    "\tgnrc usage:",
-    "\r\n",
-    "\tgnrc {<path> | <component name>} [{-f | -c}] [-i] [--no-folder] [-s [<language>]] [--state] [--effect]",
-    "\r\n",
-    "\tOption     |                Description",
-    "\t-f  (default)   The new component will be a functional component",
-    "\t-c              The new component will be a class component",
-    "\t-i              Generates an extra index file which will export the new component",
-    "\t-s <language>   Generates a styles sheet file. If no laguange is specified, a css file will be generated",
-    "\t-h, --help      Shows usage",
-    "\t--no-folder     The componet will not have it's own folder",
-    "\t--state         Imports useState hook when component is functional",
-    "\t--effect        Imports useEffect hook when component is functional"
+  "help": {
+    "gnrc": [
+      "\tgnrc usage:",
+      "\r\n",
+      "\tgnrc {<path> | <component name>} [{-f | -c}] [-i] [{--no-folder | --folder}] [{-s [<language>] | --no-styles}] [{-m | --no-module}] [--file-case <case>] [--state] [--effect]",
+      "\r\n",
+      "\tOption           |                           Description",
+      "\t-f                                   The new component will be a functional component",
+      "\t-c                                   The new component will be a class component",
+      "\t--config                             Shows default configuration for components creation",
+      "\t--config <options>                   Overwrites the default configuration for components creation",
+      "\t-i                                   Generates an extra index file which will export the new component",
+      "\t-s <language>, --styles <language>   Generates a styles sheet file. If no laguange is specified, a css file will be generated",
+      "\t--no-styles                          Avoids creation of styles file",
+      "\t-h, --help                           Shows usage",
+      "\t--folder                             The component will have it's own folder",
+      "\t--no-folder                          The component will not have it's own folder",
+      "\t--state                              Imports useState hook when component is functional",
+      "\t--effect                             Imports useEffect hook when component is functional",
+      "\t--file-case <case>                   Case that will be used when naming new files",
+      "\t--module                             Styles file will be a module",
+      "\t--no-module                          Styles file will not be a module",
+      "\t-v, --version                        Shows current gnrc version"
+    ],
+    "config": [
+      "Default config options:",
+      "\r\n",
+      "\tOption         |               Description",
+      "\t--file-case <case>             Default case that will be used when naming new files (camel or pascal)",
+      "\t--component-type, --type, -t   Default type of component (function or class)",
+      "\t-s, --styles                   Styles file should be created? (true or false)",
+      "\t--styles-language <language>   Default styles language",
+      "\t--module, -m                   Styles files should be modules? (true or false)",
+      "\t--folder                       Folder should be created for new components? (true or false)",
+      "\t-i, --index                    Index file should be created? (true or false)"
     ]
+  }
 }
