@@ -1,23 +1,31 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const {message, validation, getConfig} = require('./helpers')
+const {message, validation, getConfig, hasArg, VALID_ARGS} = require('./helpers')
 const data = require('./data.json')
 const pkg = require('../package.json');
 const updateNotifier = require('update-notifier');
-const args = process.argv.slice(2);
+const userArgs = process.argv.slice(2);
 
 const isDevelopment = process.env.NODE_ENV === 'development' ? true : false
 const notifier = updateNotifier({pkg, updateCheckInterval: 0});
 
-console.log(getConfig(args))
+let config
 
-if(args[0] && (args[0] === '-h' || args[0] === '--help')){
+try {
+    config = getConfig(userArgs)
+}
+catch(err) {
+    message.red(err.message)
+}
+
+
+if(hasArg(userArgs, VALID_ARGS.help)){
     
     return console.log(data.help.join('\r\n'));``
 }
 
-const path = args[0];
+const path = userArgs[0];
 
 if(!path || path[0] === '-'){
     message.yellow('Component path was not specified');
@@ -25,7 +33,7 @@ if(!path || path[0] === '-'){
 }
 
 let options;
-try{ options = validation.options(args); }
+try{ options = validation.options(userArgs); }
 catch(err) {
     message.red(err.message);
     return
@@ -47,7 +55,7 @@ const dirToCreate = (() => {
             dir = `./components`;
     }
 
-    if(!args.includes('--no-folder'))
+    if(!userArgs.includes('--no-folder'))
         dir += `/${componentName}`
 
     return dir

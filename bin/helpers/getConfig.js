@@ -1,6 +1,7 @@
 const isDevelopment = process.env.NODE_ENV === 'development' ? true : false
 const config = require(`../config${isDevelopment ? '.dev' : ''}.json`)
-const {validArgs, hasArg} = require('./args')
+const {VALID_ARGS, validFlags, hasArg, validateConflicts} = require('./args')
+const message = require('./message')
 
 //      realConfig mus have this next props
 // {
@@ -13,34 +14,45 @@ const {validArgs, hasArg} = require('./args')
 
 /**
  * 
- * @param {*} args 
+ * @param {*} userArgs 
  */
 
-module.exports = (args) => {
+module.exports = (userArgs) => {
     const realConfig = {}
+    const validation = validateConflicts(userArgs)
 
-    const fileCase = hasArg(args, validArgs.fileCase)
-    realConfig.fileCase =  fileCase && (fileCase.fileCase !== 'Invalid') ? fileCase.fileCase : config.fileCase
 
-    const componentType = !function(){ 
-        if(hasArg(args, validArgs.function))
-            return 'function'
+    if(validation.conflict)
+        throw new Error(validation.reason)
 
-        if(hasArg(args, validArgs.class))
-            return 'class'
+    Object.keys(config).map(key => {
 
-        return null
-    }()
-    realConfig.componentType = componentType ? componentType : config.componentType
+        let arg
 
-    const styles = hasArg(args, validArgs.styles)
-    realConfig.stylesLanguage = styles && (styles.stylesLanguage !== 'Invalid') ? styles.stylesLanguage : config.stylesLanguage
+        switch(key){
+            case 'fileCase':
+                arg = hasArg(userArgs, VALID_ARGS[key])
+                break;
 
-    const module = hasArg(args, validArgs.module)
-    realConfig.stylesModule = module ? true : config.stylesModule
+            case 'stylesLanguage':
+                arg = hasArg(userArgs, VALID_ARGS.styles)
+                break;
 
-    const index = hasArg(args, validArgs.index)
-    realConfig.createIndex = index ? true : config.createIndex
+            case 'componentType':
+                arg = hasArg(userArgs, VALID_ARGS.function) || hasArg(userArgs, VALID_ARGS.class)
+                break;
+
+            case 'stylesModule':
+                arg = hasArg(userArgs, VALID_ARGS.module)
+                break;
+
+            case 'createIndex':
+                arg = hasArg(userArgs, VALID_ARGS.index)
+                break;
+        }
+        
+        realConfig[key] = arg ? arg.value : config[key]
+    })
 
     return realConfig
 
