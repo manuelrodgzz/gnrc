@@ -25,6 +25,7 @@ if(hasArg(userArgs, VALID_ARGS.help)){
     return console.log(data.help.join('\r\n'));``
 }
 
+//Pending... move path logic to another file. Should be added to args.js? or maybe a new file?
 const path = userArgs[0];
 
 if(!path || path[0] === '-'){
