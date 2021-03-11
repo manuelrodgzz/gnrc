@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const message = require('./helpers/message');
+const {message, validation, getConfig} = require('./helpers')
 const data = require('./data.json')
-const validation = require('./helpers/validation');
 const pkg = require('../package.json');
 const updateNotifier = require('update-notifier');
 const args = process.argv.slice(2);
 
+const isDevelopment = process.env.NODE_ENV === 'development' ? true : false
 const notifier = updateNotifier({pkg, updateCheckInterval: 0});
+
+console.log(getConfig(args))
 
 if(args[0] && (args[0] === '-h' || args[0] === '--help')){
     
