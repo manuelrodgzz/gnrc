@@ -1,12 +1,13 @@
 const message = require('./message');
-const validation = require('./validation');
-const getConfig = require('./getConfig')
-const {hasArg, VALID_ARGS} = require('./args')
+const createFiles = require('./createFiles');
+const getOptions = require('./getOptions')
+const {VALID_ARGS, getPathToCreate} = require('./args')
+const toCase = require('./toCase')
 
 module.exports = {
     VALID_ARGS,
-    hasArg,
     message,
-    validation,
-    getConfig
+    createFiles,
+    getOptions,
+    getPathToCreate
 }
