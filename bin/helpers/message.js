@@ -32,7 +32,6 @@ const colours = {
 };
 
 const me = `[ gnrc ] : `
-const meStyle = 'color: green;'
 
 const green = (text) => console.log(colours.dim, me, colours.reset, colours.fg.green, text, colours.reset)
 const yellow = (text) => console.log(colours.dim, me, colours.reset, colours.fg.yellow, text, colours.reset)

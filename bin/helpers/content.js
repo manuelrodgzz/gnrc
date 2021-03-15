@@ -14,6 +14,7 @@ const ${componentName} = (props) => {
 
 export default ${componentName}`
 }
+
 const classComponent = (componentName, stylesFile) => {
     componentName = toCase(componentName, 'pascal')
     return `import React from 'react'
@@ -32,8 +33,20 @@ class ${componentName} extends React.Component {
 
 export default ${componentName}`
 }
+
+const config = JSON.stringify({
+    fileCase: 'pascal',
+    componentType: 'function',
+    styles: false,
+    stylesLanguage: 'css',
+    stylesModule: true,
+    componentFolder: true,
+    createIndex: false
+},undefined, 1)
+
 module.exports = {
     index,
     fnComponent,
-    classComponent
+    classComponent,
+    config
 }

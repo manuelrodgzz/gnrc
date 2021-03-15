@@ -30,7 +30,7 @@ module.exports = (userArgs) => {
 
     if(!options.function && !options.class)
         options[config.componentType] = true
-
+    console.log(config)
     if(!options.styles && config.styles)
         options.styles = config.stylesLanguage
 
@@ -38,9 +38,8 @@ module.exports = (userArgs) => {
         options.module = config.stylesModule
 
     if(!options.noFolder)
-        options.noFolder = config.componentFolder
+        options.noFolder = !config.componentFolder
 
-    console.log(options)
     return options
 
 }
