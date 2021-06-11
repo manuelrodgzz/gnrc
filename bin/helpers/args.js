@@ -274,7 +274,6 @@ const getArgs = (argsArray) => {
 
           //If current arg is styles and next arg is not an option (a value)
           if (
-            VALID_ARGS[key] === VALID_ARGS.styles &&
             nextArg &&
             nextArg[0] !== '-'
           )
