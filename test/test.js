@@ -13,6 +13,17 @@ const deleteFiles = (path) => {
   else execSync(`rm -r ${path}`);
 };
 
+function fileExistsWithCaseSync(filepath) {
+  const pathArray = filepath.split('/');
+
+  try {
+    return fs.readdirSync(pathArray.slice(0,pathArray.length-1).join('/')).includes(pathArray[pathArray.length-1])
+  }
+  catch(e){
+    return false
+  }
+}
+
 /**
  *
  * @param {{folderPath: string, componentFile: {path: string, type: string, hooks: [string]}, indexPath: string, stylePath: string}} component
@@ -21,10 +32,10 @@ const filesExist = (component) => {
   const result = {};
 
   //Check if folder, component file, index and style file exist
-  result.folder = fs.existsSync(component.folderPath);
-  result.file = fs.existsSync(component.componentFile.path);
-  result.index = fs.existsSync(component.indexPath);
-  result.style = fs.existsSync(component.stylePath);
+  result.folder = fileExistsWithCaseSync(component.folderPath);
+  result.file = fileExistsWithCaseSync(component.componentFile.path);
+  result.index = fileExistsWithCaseSync(component.indexPath);
+  result.style = fileExistsWithCaseSync(component.stylePath);
 
   //If component file exist, it's content is read and checks if it was created correctly
   if (result.file) {
@@ -187,7 +198,7 @@ describe('Testing component generation with default config', function () {
     done();
   });
 
-  it('Creating class component with index when src folder exist', (done) => {
+  it('Creating class component with index when src folder exist', (done) => { 
     const expected = createExpected(true, true, true, false);
 
     execSync('mkdir src');
@@ -285,6 +296,24 @@ describe('Testing component generation with configuration modifications', functi
     assert.deepStrictEqual(actual, expected);
     done();
   });
+
+  it('Creating functional component with camel case and with no module styles', (done) => {
+    const expected = createExpected(false, true, true, true);
+
+    execSync('node bin MyComponent -f -s --no-module --file-case camel');
+    const actual = filesExist({
+      folderPath: './components/myComponent',
+      componentFile: {
+        path: './components/myComponent.js',
+        type: 'function'
+      },
+      indexPath: './components/myComponent.js',
+      stylePath: './components/myComponent.scss'
+    })
+
+    assert.deepStrictEqual(actual, expected);
+    done();
+  })
 
   after(() =>
     fs.writeFileSync(
