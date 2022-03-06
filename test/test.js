@@ -91,7 +91,6 @@ const createExpected = (
 });
 
 const createConfigExpected = (
-  fileCase,
   componentType,
   styles,
   stylesLanguage,
@@ -99,7 +98,6 @@ const createConfigExpected = (
   componentFolder,
   createIndex
 ) => ({
-  fileCase,
   componentType,
   styles,
   stylesLanguage,
@@ -181,17 +179,17 @@ describe('Testing component generation with default config', function () {
   it('Creating functional component with useState and useEffect hooks', (done) => {
     const expected = createExpected(true, true, false, false);
 
-    execSync('node bin MyComponent --state --effect');
+    execSync('node bin myComponent --state --effect');
 
     const actual = filesExist({
-      folderPath: './components/MyComponent',
+      folderPath: './components/myComponent',
       componentFile: {
-        path: './components/MyComponent/MyComponent.js',
+        path: './components/myComponent/myComponent.js',
         type: 'function',
         hooks: ['useState', 'useEffect'],
       },
-      indexPath: './components/MyComponent/index.js',
-      stylePath: './components/MyComponent/MyComponent.module.css',
+      indexPath: './components/myComponent/index.js',
+      stylePath: './components/myComponent/myComponent.module.css',
     });
 
     assert.deepStrictEqual(actual, expected);
@@ -224,9 +222,8 @@ describe('Testing component generation with configuration modifications', functi
 
   afterEach(() => deleteSrcAndComponents());
 
-  it('Updating config file to fileCase: camel, type: class, styles: true, stylesLanguage: scss, module: false, folder: false, index: true', (done) => {
+  it('Updating config file to type: class, styles: true, stylesLanguage: scss, module: false, folder: false, index: true', (done) => {
     const expected = createConfigExpected(
-      'camel',
       'class',
       true,
       'scss',
@@ -236,7 +233,7 @@ describe('Testing component generation with configuration modifications', functi
     );
 
     execSync(
-      'node bin --config --file-case camel -t class -s true --style-language scss -m false --folder false -i true'
+      'node bin --config -t class -s true --style-language scss -m false --folder false -i true'
     );
     const actual = require('../bin/config.json');
     assert.deepStrictEqual(actual, expected);
@@ -246,7 +243,7 @@ describe('Testing component generation with configuration modifications', functi
   it('Creating class component after config was updated', (done) => {
     const expected = createExpected(false, true, true, true);
 
-    execSync('node bin MyComponent');
+    execSync('node bin myComponent');
     const actual = filesExist({
       folderPath: './components/myComponent',
       componentFile: {
@@ -264,7 +261,7 @@ describe('Testing component generation with configuration modifications', functi
   it('Creating functional component with folder, styles module and without index file', (done) => {
     const expected = createExpected(true, true, false, true);
 
-    execSync('node bin MyComponent -f --no-index -m --folder');
+    execSync('node bin myComponent -f --no-index -m --folder');
     const actual = filesExist({
       folderPath: './components/myComponent',
       componentFile: {
@@ -279,10 +276,10 @@ describe('Testing component generation with configuration modifications', functi
     done();
   });
 
-  it('Creating class component with pascal case and without styles', (done) => {
+  it('Creating class component without styles', (done) => {
     const expected = createExpected(false, true, true, false);
 
-    execSync('node bin MyComponent --no-style --file-case pascal');
+    execSync('node bin MyComponent --no-style');
     const actual = filesExist({
       folderPath: './components/MyComponent',
       componentFile: {
@@ -297,10 +294,10 @@ describe('Testing component generation with configuration modifications', functi
     done();
   });
 
-  it('Creating functional component with camel case and with no module styles', (done) => {
+  it('Creating functional component with no module styles', (done) => {
     const expected = createExpected(false, true, true, true);
 
-    execSync('node bin MyComponent -f -s --no-module --file-case camel');
+    execSync('node bin myComponent -f -s --no-module');
     const actual = filesExist({
       folderPath: './components/myComponent',
       componentFile: {
