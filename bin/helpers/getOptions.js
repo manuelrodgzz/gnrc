@@ -12,8 +12,6 @@ module.exports = (userArgs) => {
 
   if (!options.index && !options.noIndex) options.index = config.createIndex;
 
-  if (!options.fileCase) options.fileCase = config.fileCase;
-
   if (!options.function && !options.class) options[config.componentType] = true;
 
   if (!options.styles && !options.noStyles && config.styles)

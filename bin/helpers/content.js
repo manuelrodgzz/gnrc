@@ -38,7 +38,6 @@ export default ${componentName}`;
 
 const config = JSON.stringify(
   {
-    fileCase: 'pascal',
     componentType: 'function',
     styles: false,
     stylesLanguage: 'css',

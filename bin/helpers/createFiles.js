@@ -1,7 +1,6 @@
 const fs = require('fs');
 const validateFileCreation = require('./validateFileCreation');
 const { index, fnComponent, classComponent, config } = require('./content');
-const toCase = require('./toCase');
 const message = require('./message');
 
 /**
@@ -33,11 +32,6 @@ const createFile = (dirPath, file, content) => {
  */
 const createComponentFiles = (options) => {
   let pathArray = options.path.split('/'); //Path is converted to array
-
-  //Component name in path array is converted to use the case selected by the user
-  pathArray = pathArray.map((string, idx) =>
-    idx === pathArray.length - 1 ? toCase(string, options.fileCase) : string
-  );
 
   //Modified path string is assigned to options object
   options.path = pathArray.join('/');

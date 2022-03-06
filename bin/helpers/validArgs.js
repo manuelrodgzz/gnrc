@@ -23,10 +23,6 @@ const VALID_ARGS = {
   config: {
     flags: ['--config'],
     arguments: {
-      fileCase: {
-        flags: ['--file-case'],
-        validValues: ['pascal', 'camel'],
-      },
       componentType: {
         flags: ['--component-type', '--type', '-t'],
         validValues: ['function', 'class'],
@@ -79,11 +75,6 @@ const VALID_ARGS = {
   },
   effect: {
     flags: ['--effect'],
-  },
-  fileCase: {
-    flags: ['--file-case'],
-    validValues: ['camel', 'pascal'],
-    valueRequired: true,
   },
   module: {
     flags: ['-m', '--module'],

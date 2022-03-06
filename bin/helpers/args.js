@@ -199,9 +199,7 @@ const validateAllConflicts = (argsArray) => {
  */
 const getPathToCreate = (args) => {
   const pathArray = args[0].split('/');
-  const componentName =
-    pathArray[pathArray.length - 1][0].toUpperCase() +
-    pathArray[pathArray.length - 1].slice(1);
+  const componentName = pathArray[pathArray.length - 1]
 
   const dirToCreate = (() => {
     let dir;
