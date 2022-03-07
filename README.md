@@ -15,7 +15,7 @@ Save your time and generate your react components in a simple and fast way.
 
 ## Command
 
-`gnrc {<path> | <component name>} [{-f | -c}] [-i] [{--no-folder | --folder}] [{-s [<language>] | --no-styles}] [{-m | --no-module}] [--file-case <case>] [--state] [--effect]`
+`gnrc {<path> | <component name>} [{-f | -c}] [-i] [{--no-folder | --folder}] [{-s [<language>] | --no-styles}] [{-m | --no-module}] [--state] [--effect]`
 
 If only component name is specified instead of path:
 
@@ -38,25 +38,18 @@ If only component name is specified instead of path:
 |           --no-folder                     |                       The componet will not have it's own folder                                  |
 |           --state                         |                       Imports useState hook when component is functional                          |
 |           --effect                        |                       Imports useEffect hook when component is functional                         |
-|           --file-case &lt;case>           |                       Case that will be used when naming new files                                |
 |           --module                        |                       Styles file will be a module                                                |
 |           --no-module                     |                       Styles file will not be a module                                            |
 |           -v, --version                   |                       Shows current gnrc version                                                  |
 ## Config options table
 |            Flag                                               |                                       Description                                     |
 | ------------------------------------------------------------: | :------------------------------------------------------------------------------------:|
-|       --file-case &lt;case>                                   |       Default case that will be used when naming new files (camel or pascal)          |
 |   --component-type &lt;type>, --type &lt;type>, -t &lt;type>  |       Default type of component (function or class)                                   |
 |       -s &lt;boolean>, --styles &lt;boolean>                  |       Styles file should be created? (true or false)                                  |
 |       --styles-language &lt;language>                         |       Default styles language                                                         |
 |       --module &lt;boolean>, -m &lt;boolean>                  |       Styles files should be modules? (true or false)                                 |
 |       --folder &lt;boolean>                                   |       Folder should be created for new components? (true or false)                    |
 |       -i &lt;boolean>, --index &lt;boolean>                   |       Index file should be created? (true or false)                                   |
-
-## Supported casing for files
-
-- camel
-- pascal
 
 ## Supported styles languages
 
@@ -71,7 +64,7 @@ If only component name is specified instead of path:
 
 _src folder exist_
 
-`gnrc MyComponent -i -s --file-case camel`
+`gnrc myComponent -i -s`
 
 ```
 .
@@ -101,7 +94,6 @@ _src folder does not exist_
 gnrc --config -m false --type class //set configuration to "no styles modules" and "class components"
 gnrc --config //show current configuration
 [ gnrc ] :    {
- fileCase: "pascal",
  componentType: "class",
  styles: false,
  stylesLanguage: "css",
